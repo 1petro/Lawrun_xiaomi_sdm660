@@ -53,6 +53,9 @@ extern bool focal_gesture_mode;
 extern bool synaptics_gesture_func_on;
 #endif
 
+static unsigned int framerate_override;
+module_param(framerate_override, uint, 0444);
+
 bool ESD_TE_status = false;
 #endif
 
@@ -2933,6 +2936,9 @@ static int mdss_dsi_panel_timing_from_dt(struct device_node *np,
 
 	rc = of_property_read_u32(np, "qcom,mdss-dsi-panel-framerate", &tmp);
 	pt->timing.frame_rate = !rc ? tmp : DEFAULT_FRAME_RATE;
+	if (pt->timing.frame_rate == 60) {
+			pt->timing.frame_rate = framerate_override;
+	}
 	rc = of_property_read_u64(np, "qcom,mdss-dsi-panel-clockrate", &tmp64);
 	if (rc == -EOVERFLOW) {
 		tmp64 = 0;
