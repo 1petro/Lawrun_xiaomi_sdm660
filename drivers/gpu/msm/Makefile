@@ -1,5 +1,8 @@
 ccflags-y := -Idrivers/staging/android
 
+subdir-ccflags-y += \
+	-Wno-frame-larger-than= \
+	
 msm_kgsl_core-y = \
 	kgsl.o \
 	kgsl_trace.o \
