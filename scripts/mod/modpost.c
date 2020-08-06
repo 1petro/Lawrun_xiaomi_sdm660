@@ -2509,10 +2509,6 @@ int main(int argc, char **argv)
 		write_dump(dump_write);
 	if (sec_mismatch_count) {
 		if (!sec_mismatch_verbose) {
-		    warn("modpost: Found %d section mismatch(es).\n"
-			     "To see full details build your kernel with:\n"
-			     "'make CONFIG_DEBUG_SECTION_MISMATCH=y'\n",
-			     sec_mismatch_count);
 		}
 		if (sec_mismatch_fatal) {
 			fatal("modpost: Section mismatches detected.\n"
