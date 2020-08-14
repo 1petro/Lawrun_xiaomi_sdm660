@@ -1,6 +1,12 @@
 # CPUfreq core
 obj-$(CONFIG_CPU_FREQ)			+= cpufreq.o freq_table.o cpufreq_governor_attr_set.o
 
+# Diaable And Silence Noisy Warnings
+subdir-ccflags-y += \
+	-Wno-incompatible-pointer-types \
+	-Wno-unused-variable \
+	-Wno-misleading-indentation \
+
 # CPUfreq stats
 obj-$(CONFIG_CPU_FREQ_STAT)             += cpufreq_stats.o
 
