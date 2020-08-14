@@ -1,5 +1,9 @@
 source "drivers/video/fbdev/msm/msm_dba/Kconfig"
 
+config FPS_OVERRIDE
+    select FB_MSM_MDSS_COMMON
+    bool "Fps Override"
+    
 if FB_MSM
 
 config FB_MSM_MDSS_COMMON
