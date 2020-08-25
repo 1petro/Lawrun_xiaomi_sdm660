@@ -264,8 +264,8 @@ struct msm_mctl_post_proc_cmd {
 #define MSM_CAMERA_STROBE_FLASH_XENON 1
 
 #ifdef CONFIG_MACH_XIAOMI_LAVENDER
-#define MSM_MAX_CAMERA_SENSORS  7
-#else
+/* #define MSM_MAX_CAMERA_SENSORS  7
+#else */
 #define MSM_MAX_CAMERA_SENSORS  6
 #endif
 #define MAX_SENSOR_NAME 32

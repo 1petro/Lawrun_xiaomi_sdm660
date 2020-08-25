@@ -54,8 +54,8 @@
 #define MSM_CAMERA_SUBDEV_TOF          20
 #define MSM_CAMERA_SUBDEV_LASER_LED    21
 #ifdef CONFIG_MACH_XIAOMI_LAVENDER
-#define MSM_MAX_CAMERA_SENSORS  7
-#else
+/* #define MSM_MAX_CAMERA_SENSORS  7
+#else */
 #define MSM_MAX_CAMERA_SENSORS  6
 #endif
 
