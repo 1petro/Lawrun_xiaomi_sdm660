@@ -11,9 +11,9 @@ THREAD="-j8"
 KERNEL="Image"
 DTBIMAGE="dtb"
 KERNEL_NAME=$(pwd)
-ver=10
+ver=12
 Device_Name=Xiaomi_Sdm660
-KER_DIR=pwd
+KER_DIR=$(pwd)
 Kernel_Work=/sdcard/kernel_work/$Device_Name
 #Default CC-tool
 out=out-clang && Cc=clang-$ver
@@ -199,6 +199,7 @@ rm -r $out
 ./build.sh
 fi
 if [ "$choice" == "6" ]; then
+clear
 echo -e "[1] make DTS only"
 echo -e "[2] make DTBO with Overlay"
 echo -ne "\n(i) Make your choice[1-2]: "
@@ -209,9 +210,8 @@ make CC="ccache $Cc" O=$out dtbs $THREAD
 fi
 if [ "$Pl" == "2" ]; then
 echo "Making DTBO"
-cd /root/libufdt/utils/src 
-python mkdtboimg.py create $Kernel_Work/dtbo.img $KER_DIR/$out/arch/arm64/boot/dts/qcom/*.dtbo
-cd $KER_DIR
+python /root/libufdt/utils/src/mkdtboimg.py create $Kernel_Work/dtbo.img $KER_DIR/$out/arch/arm64/boot/dts/qcom/*.dtbo
+sleep 2
 ./build.sh
 fi
 fi
@@ -256,43 +256,6 @@ nano Changelog_v-2
 fi
 if [ "$choice" == "e" ]; then
 exit
-fi
-if [ "$choice" == "m" ]; then
-echo "Special Add-ons"
-echo -e " \e[31m"
-echo -e "[1] Camera blobs"
-read Pull
-if [ "$Pull" == "1" ]; then
-echo -e "[1] Support For New Blobs Miui11"
-echo -e "[2] Support For Old Blobs Most Roms"
-echo -ne "\n(i) Make your choice[1-2]: "
-read Klk
-if [ "$Klk" == "1" ]; then
-cd 'camera blobs'
-cp msm_isp47.c -r $KER_DIR/drivers/media/platform/msm/camera_v2/isp
-cp msm_isp48.c -r $KER_DIR/drivers/media/platform/msm/camera_v2/isp
-cp msm_sensor.c -r $KER_DIR/drivers/media/platform/msm/camera_v2/sensor
-cp msm_sensor_driver.c -r $KER_DIR/drivers/media/platform/msm/camera_v2/sensor
-cp msm_cam_sensor.h -r $KER_DIR/include/media
-cp camera2.h -r $KER_DIR/include/soc/qcom
-cp msm_camera.h -r $KER_DIR/include/uapi/media
-cp msm_camsensor_sdk.h -r $KER_DIR/include/uapi/media
-cp msmb_camera.h -r $KER_DIR/include/uapi/media
-cd $KER_DIR
-fi
-if [ "$Klk" == "2" ]; then
-git restore drivers/media/platform/msm/camera_v2/isp/msm_isp47.c
-git restore drivers/media/platform/msm/camera_v2/isp/msm_isp48.c
-git restore drivers/media/platform/msm/camera_v2/sensor/msm_sensor.c
-git restore drivers/media/platform/msm/camera_v2/sensor/msm_sensor_driver.c
-git restore include/media/msm_cam_sensor.h
-git restore include/soc/qcom/camera2.h
-git restore include/uapi/media/msm_camera.h
-git restore include/uapi/media/msm_camsensor_sdk.h
-git restore include/uapi/media/msmb_camera.h
-./build.sh
-fi
-fi
 fi
 if [ "$choice" == "g" ]; then
 ./build.sh gcc 
